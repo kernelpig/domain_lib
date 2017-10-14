@@ -5,8 +5,16 @@ import (
 	"sort"
 	"strings"
 
-	"wangqingang/sms_lib/common"
-	"wangqingang/sms_lib/pb"
+	"wangqingang/domain_lib/common"
+	"wangqingang/domain_lib/pb"
+)
+
+// 业务请求参数
+const (
+	ReqURI                 = "http://domain.aliyuncs.com/?Signature=%s&%s"
+	ReqAPIVersion          = "2016-05-11"
+	SubOrderActionActivate = "activate"
+	SubOrderActionRenew    = "renew"
 )
 
 var AccessKeyId string
@@ -19,17 +27,17 @@ func InitAccess(keyId, secret string) {
 }
 
 // 创建短信发送链接
-func CreateSmsSendUrlWithAccess(accessKeyId, accessSecret string, smsSendRequest *pb.SendSmsRequest) string {
+func CreateSmsSendUrlWithAccess(accessKeyId, accessSecret string, smsSendRequest *pb.CreateOrderRequest) string {
 	InitAccess(accessKeyId, accessSecret)
 	return CreateSmsSendUrl(smsSendRequest)
 }
 
 // 创建短信发送链接
-func CreateSmsSendUrl(smsSendRequest *pb.SendSmsRequest) string {
+func CreateSmsSendUrl(req *pb.CreateOrderRequest) string {
 	params := make(map[string]string)
 
 	// 设置请求参数
-	FillParam(params, smsSendRequest)
+	fillParam(params, req)
 
 	// 参数Key排序, 获取排序后的key
 	sortedKeys := make([]string, 0)
@@ -59,5 +67,5 @@ func CreateSmsSendUrl(smsSendRequest *pb.SendSmsRequest) string {
 	signature := common.SpecialUrlEncode(signedString)
 
 	// 返回合法的请求
-	return fmt.Sprintf(common.SmsSendUrlFormat, signature, sortedQueryString)
+	return fmt.Sprintf(ReqURI, signature, sortedQueryString)
 }

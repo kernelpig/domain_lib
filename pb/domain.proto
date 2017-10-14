@@ -7,7 +7,7 @@ package pb;
 message SubOrderParam {
     string Action               = 1;    //子订单对应操作可选值：activate-购买，renew-续费
     string RelatedName          = 2;    //订单业务对应域名
-    int Period                  = 3;    //购买周期，以月为单位
+    int32 Period                = 3;    //购买周期，以月为单位
     string DomainTemplateID     = 4;    //联系人模板编号，域名新购时必须
 }
 
