@@ -26,14 +26,14 @@ func InitAccess(keyId, secret string) {
 	AccessSecret = secret
 }
 
-// 创建短信发送链接
-func CreateSmsSendUrlWithAccess(accessKeyId, accessSecret string, smsSendRequest *pb.CreateOrderRequest) string {
+// 创建域名发送链接
+func CreateOrderWithAccess(accessKeyId, accessSecret string, smsSendRequest *pb.CreateOrderRequest) string {
 	InitAccess(accessKeyId, accessSecret)
-	return CreateSmsSendUrl(smsSendRequest)
+	return CreateOrder(smsSendRequest)
 }
 
-// 创建短信发送链接
-func CreateSmsSendUrl(req *pb.CreateOrderRequest) string {
+// 创建域名发送链接
+func CreateOrder(req *pb.CreateOrderRequest) string {
 	params := make(map[string]string)
 
 	// 设置请求参数

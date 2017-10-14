@@ -26,23 +26,27 @@ func TestCreateSmsSendUrl(t *testing.T) {
 		Action:        testAction,
 		SubOrderParam: []*pb.SubOrderParam{subOrder},
 	}
-	url := CreateSmsSendUrl(&request)
+	url := CreateOrder(&request)
 	if len(url) == 0 {
-		t.Error("create domain create order url failed.")
+		t.Error("create order url failed.")
 	}
 	t.Log("your domain create order url is: ", url)
 }
 
-//func TestCreateSmsSendUrlWithAccess(t *testing.T) {
-//	request := pb.SendSmsRequest{
-//		PhoneNumbers:  testPhoneNumbers,
-//		SignName:      testSignName,
-//		TemplateCode:  testTemplateCode,
-//		TemplateParam: testTemplateParam,
-//	}
-//	url := CreateSmsSendUrlWithAccess(testAccessId, testAccessSecret, &request)
-//	if len(url) == 0 {
-//		t.Error("create sms send url failed.")
-//	}
-//	t.Log("your send sms url is: ", url)
-//}
+func TestCreateSmsSendUrlWithAccess(t *testing.T) {
+	subOrder := &pb.SubOrderParam{
+		RelatedName:      testDomain1,
+		Period:           12,
+		DomainTemplateID: testTemplateID,
+		Action:           SubOrderActionActivate,
+	}
+	request := pb.CreateOrderRequest{
+		Action:        testAction,
+		SubOrderParam: []*pb.SubOrderParam{subOrder},
+	}
+	url := CreateOrderWithAccess(testAccessId, testAccessSecret, &request)
+	if len(url) == 0 {
+		t.Error("create domain order url failed.")
+	}
+	t.Log("your domain create order url is: ", url)
+}
