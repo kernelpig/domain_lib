@@ -1,0 +1,26 @@
+syntax = "proto3";
+package pb;
+
+
+// 子订单参数，具体请参考链接
+// https://help.aliyun.com/document_detail/42902.html?spm=5176.doc42892.6.615.jDsihJ
+message SubOrderParam {
+    string Action               = 1;    //子订单对应操作可选值：activate-购买，renew-续费
+    string RelatedName          = 2;    //订单业务对应域名
+    int Period                  = 3;    //购买周期，以月为单位
+    string DomainTemplateID     = 4;    //联系人模板编号，域名新购时必须
+}
+
+// 创建订单接口请求参数, 具体请参考链接
+// https://help.aliyun.com/document_detail/42892.html?spm=5176.doc42893.6.596.f2vn3v
+message CreateOrderRequest {
+    string Action                           = 1;    //操作接口名字
+    repeated SubOrderParam SubOrderParam    = 2;    // 子订单列表
+}
+
+// 创建订单响应参数, 具体请参考链接
+// https://help.aliyun.com/document_detail/42892.html?spm=5176.doc42893.6.596.f2vn3v
+message CreateOrderRespose {
+    string RequestId    = 1;    //请求ID
+    string OrderID      = 2;    // 购买成功时返回主订单编号
+}
