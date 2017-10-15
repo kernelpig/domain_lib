@@ -27,9 +27,9 @@ func InitAccess(keyId, secret string) {
 }
 
 // 创建域名发送链接
-func CreateOrderWithAccess(accessKeyId, accessSecret string, smsSendRequest *pb.CreateOrderRequest) string {
+func CreateOrderWithAccess(accessKeyId, accessSecret string, req *pb.CreateOrderRequest) string {
 	InitAccess(accessKeyId, accessSecret)
-	return CreateOrder(smsSendRequest)
+	return CreateOrder(req)
 }
 
 // 创建域名发送链接

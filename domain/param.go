@@ -22,7 +22,8 @@ const (
 
 // 业务API接口参数常量，
 const (
-	createOrderAction = "CreateOrder"
+	CreateOrderAction = "CreateOrder"
+	SubOrderPeriodMin = 12 // 12个月，最小单位
 )
 
 // 设置系统参数
@@ -52,7 +53,7 @@ func p2rSubOrderParam(params map[string]string, req []*pb.SubOrderParam) {
 
 // 转换创建订单参数
 func p2rCreateOrderReq(params map[string]string, req *pb.CreateOrderRequest) {
-	params[reqKeyAction] = createOrderAction
+	params[reqKeyAction] = CreateOrderAction
 	p2rSubOrderParam(params, req.SubOrderParam)
 }
 
